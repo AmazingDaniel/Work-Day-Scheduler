@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Work Day Scheduler</title>
+  </head>
+
+  <body>
+    <header class="jumbotron">
+      <h1 class="display-3">Work Day Scheduler</h1>
+      <p class="lead">A simple calendar app for scheduling your work day</p>
+      <p id="currentDay" class="lead"></p>
+    </header>
+    <div class="container" id="box">
+      <!-- Timeblocks go here -->
+      <script type=text/javascript>
+        $(document).ready(function() {
+  
+          var true1 = true;
+          
+          var cal = moment().format("MMM Do YY");
+  
+          var hour24 = moment().format('H')
+          var hour12 = moment().format('h')
+  
+          if (true1) {
+            hour24 = 13;
+            hour12 = 1;
+          }
+          
+          var currentDay = $("#currentDay")
+          currentDay.text(cal);
+  
+          var memory = JSON.parse(localStorage.getItem("memory"));
+  
+          if (memory !== null) {
+            text1 = memory;
+          } else {
+            text1 = new Array(9);
+          }
+  
+          var box = $("#box");
+          box.empty();
+  
+          for(var hour = 9; hour <= 17; hour++){
+  
+            var ix = hour - 9;
+  
+            var row = $("<div>");
+              row.addClass("row");
+              row.addClass("boxRow");
+              row.attr("hour-index",hour);
+  
+            var firstPart = $("<div>");
+              firstPart.addClass("col-md-2");
+              
+            var time = $("<span>");
+              time.attr("class",".timeblock");
+              
+            var clock = 0;
+            var ap = "";
+            if (hour > 12){
+              clock = hour - 12;
+              ap ="pm";
+            } else {
+              clock = hour;
+              ap ="am";
+            }
+            timeOfDay.text(`${clock} ${ap}`);
+  
+            row.append(firstPart);
+            firstPart.append(timeOfDay);
+  
+            var nextTime = $("<input>");
+  
+            nextTime.attr("id", `input-${ix}`);
+            nextTime.attr("type","text");
+            nextTime.attr("class","dailyPlan");
+            nextTime.attr("hour-index", ix);
+  
+            nextTime.val(text1[i]);
+  
+            var secondPart = $("<div>");
+              secondPart.addClass("col-md-8");
+  
+              row.append(secondPart);
+              secondPart.append(nextTime);
+            
+            var lastPart = $("<div>");
+              lastPart.addClass("col-md-2");
+            
+            var save =("<i>");
+              save.attr("id", `saveid-${ix}`);
+              save.attr("save-id", ix);
+              save.attr("class", "far fa-save saveBtn");
+            
+            row.append(lastPart);
+            lastPart.append(save)
+            
+            updateRowColor(row, hour);
+  
+            box.append(row);
+          };
+          
+          function updateRowColor(rowTime,hour) {
+            
+            if(hour < hour24) {
+             
+              rowTime(".past")
+            } else if (hour > hour24) {
+           
+            rowTime(".future")  
+            } else{
+              
+              rowTime(".present")
+            }
+          };
+  
+          $(document.on("click","i", function(event) {
+            event.preventDefault();
+  
+            var ii = $(this).attr("save-id");
+            var input ="#text-area"
+          }))
+  
+          
+  
+  
+  
+        })
+        
+      </script>
+    </body>
+  </html>
+      
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="lib/moment.min.js"></script>
+    
